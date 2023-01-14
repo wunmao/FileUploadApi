@@ -1,6 +1,7 @@
 using FileUploadApi;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.WebHost.ConfigureKestrel(option => option.Limits.MaxRequestBodySize = 100 * 1024 * 1024);
 var app     = builder.Build();
 app.Urls.Add("http://localhost:7000");
 
