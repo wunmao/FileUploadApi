@@ -34,7 +34,7 @@ app.MapPost("UploadServlet",
             async context =>
             {
                 var request  = context.Request;
-                var token    = request.Headers["Authorization"];
+                var token    = request.Headers["Authorization"].ToString().Split(' ')[1];
                 var folderId = request.Form["folderId"];
 
                 Console.WriteLine($"token = {token}");
