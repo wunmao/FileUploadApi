@@ -25,14 +25,13 @@ if (!string.IsNullOrEmpty(responseToken.Content))
     {
         //! 此處用System.Text.Json反序列化，也可以改用Json.Net
         token = JsonSerializer.Deserialize<Token>(responseToken.Content);
+        Console.WriteLine(token?.accessToken);
     }
     catch (Exception ex)
     {
         Console.WriteLine(ex.Message);
     }
 }
-
-Console.WriteLine(token?.accessToken);
 #endregion
 
 if (token != null)

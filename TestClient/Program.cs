@@ -25,10 +25,18 @@ requestToken.Headers.Add("Cache-Control", "no-cache");
 requestToken.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
 
 var responseToken = httpClient.Send(requestToken);
-var token         = responseToken.Content.ReadFromJsonAsync<Token>().Result;
-
 Console.WriteLine(responseToken.StatusCode);
-Console.WriteLine(token?.accessToken);
+
+Token? token = null;
+try
+{
+    token = responseToken.Content.ReadFromJsonAsync<Token>().Result;
+    Console.WriteLine(token?.accessToken);
+}
+catch (Exception ex)
+{
+    Console.WriteLine(ex.Message);
+}
 #endregion
 
 if (token != null)
