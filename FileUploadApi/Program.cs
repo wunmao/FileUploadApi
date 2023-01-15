@@ -22,7 +22,7 @@ app.MapPost("getAccessToken",
                 context.Response.StatusCode = 200;
 
                 var token = new Token
-                            {
+                            { 
                                 accessToken  = "ooxx",
                                 refreshToken = "ooxx",
                                 expiresIn    = long.MaxValue

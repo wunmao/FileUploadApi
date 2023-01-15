@@ -16,22 +16,37 @@ requestToken.AddParameter("userName",   userName);
 requestToken.AddParameter("password",   password);
 
 var responseToken = clientToken.Execute(requestToken);
-var token         = JsonSerializer.Deserialize<Token>(responseToken.Content!)!; //! 此處用System.Text.Json反序列化，也可以改用Json.Net
-
 Console.WriteLine(responseToken.StatusCode);
-Console.WriteLine(token.accessToken);
+
+Token? token = null;
+if (!string.IsNullOrEmpty(responseToken.Content))
+{
+    try
+    {
+        //! 此處用System.Text.Json反序列化，也可以改用Json.Net
+        token = JsonSerializer.Deserialize<Token>(responseToken.Content);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine(ex.Message);
+    }
+}
+
+Console.WriteLine(token?.accessToken);
 #endregion
 
-#region 上傳檔案
-using var clientFile  = new RestClient("http://localhost:7000/UploadServlet");
-var       requestFile = new RestRequest { Method = Method.Post };
-requestFile.AddHeader("Authorization", $"Bearer {token.accessToken}");
-requestFile.AddHeader("Content-Type",  "multipart/form-data");
-requestFile.AddParameter("folderId", "TestUpload", ParameterType.RequestBody); //! TestUpload是資料夾名稱，隨便打
-requestFile.AddFile("ooxx", @"C:\Users\wunmao\Desktop\test.txt");              //! ooxx是name可以隨便替換
-var responseFile = clientFile.Execute(requestFile);
-
-Console.WriteLine(responseFile.StatusCode);
-#endregion
+if (token != null)
+{
+    #region 上傳檔案
+    using var clientFile  = new RestClient("http://localhost:7000/UploadServlet");
+    var       requestFile = new RestRequest { Method = Method.Post };
+    requestFile.AddHeader("Authorization", $"Bearer {token.accessToken}");
+    requestFile.AddHeader("Content-Type",  "multipart/form-data");
+    requestFile.AddParameter("folderId", "TestUpload", ParameterType.RequestBody); //! TestUpload是資料夾名稱，隨便打
+    requestFile.AddFile("ooxx", @"C:\Users\wunmao\Desktop\test.txt");              //! ooxx是name可以隨便替換
+    var responseFile = clientFile.Execute(requestFile);
+    Console.WriteLine(responseFile.StatusCode);
+    #endregion
+}
 
 Console.ReadKey();
