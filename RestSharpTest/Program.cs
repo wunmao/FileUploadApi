@@ -28,7 +28,7 @@ var       requestFile = new RestRequest { Method = Method.Post };
 requestFile.AddHeader("Authorization", $"Bearer {token.accessToken}");
 requestFile.AddHeader("Content-Type",  "multipart/form-data");
 requestFile.AddParameter("folderId", "TestUpload", ParameterType.RequestBody); //! TestUpload是資料夾名稱，隨便打
-requestFile.AddFile("ooxx", @"C:\Users\wunmao\Desktop\test.txt");              //! ooxx可以隨便替換
+requestFile.AddFile("ooxx", @"C:\Users\wunmao\Desktop\test.txt");              //! ooxx是name可以隨便替換
 var responseFile = clientFile.Execute(requestFile);
 
 Console.WriteLine(responseFile.StatusCode);
