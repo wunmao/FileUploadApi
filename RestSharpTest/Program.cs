@@ -8,8 +8,8 @@ const string userName    = "wunmao";
 const string password    = "1234";
 
 var requestToken = new RestRequest { Method = Method.Post };
-requestToken.AddHeader("cache-control", "no-cache");
-requestToken.AddHeader("content-type",  "application/x-www-form-urlencoded");
+requestToken.AddHeader("Cache-Control", "no-cache");
+requestToken.AddHeader("Content-Type",  "application/x-www-form-urlencoded");
 requestToken.AddParameter("clientType", "20");
 requestToken.AddParameter("serverId",   "0");
 requestToken.AddParameter("userName",   userName);

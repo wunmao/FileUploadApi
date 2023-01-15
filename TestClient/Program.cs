@@ -21,7 +21,7 @@ var requestToken = new HttpRequestMessage
                                                            })
                    };
 
-requestToken.Headers.Add("cache-control", "no-cache");
+requestToken.Headers.Add("Cache-Control", "no-cache");
 requestToken.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
 
 var responseToken = httpClient.Send(requestToken);
