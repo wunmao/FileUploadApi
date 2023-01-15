@@ -12,12 +12,12 @@ var requestToken = new HttpRequestMessage
                    {
                        Method     = HttpMethod.Post,
                        RequestUri = new Uri("getAccessToken", UriKind.Relative),
-                       Content = new FormUrlEncodedContent(new[]
+                       Content = new FormUrlEncodedContent(new KeyValuePair<string, string>[]
                                                            {
-                                                               new KeyValuePair<string, string>("clientType", "20"),
-                                                               new KeyValuePair<string, string>("serverId",   "0"),
-                                                               new KeyValuePair<string, string>("userName",   userName),
-                                                               new KeyValuePair<string, string>("password",   password)
+                                                               new("clientType", "20"),
+                                                               new("serverId", "0"),
+                                                               new("userName", userName),
+                                                               new("password", password)
                                                            })
                    };
 
