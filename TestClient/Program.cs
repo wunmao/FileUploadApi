@@ -24,10 +24,10 @@ var requestToken = new HttpRequestMessage
 requestToken.Headers.Add("cache-control", "no-cache");
 requestToken.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
 
-var response1 = httpClient.Send(requestToken);
-var token     = response1.Content.ReadFromJsonAsync<Token>().Result!;
+var responseToken = httpClient.Send(requestToken);
+var token         = responseToken.Content.ReadFromJsonAsync<Token>().Result!;
 
-Console.WriteLine(response1.StatusCode);
+Console.WriteLine(responseToken.StatusCode);
 Console.WriteLine(token.accessToken);
 #endregion
 
@@ -35,8 +35,8 @@ Console.WriteLine(token.accessToken);
 using var fs = File.Open(@"C:\Users\wunma\Desktop\nugetpush.txt", FileMode.Open);
 var content = new MultipartFormDataContent
               {
-                  { new StringContent("TestUpload"), "folderId" },
-                  { new StreamContent(fs), "file", "test.txt" }
+                  { new StringContent("TestUpload"), "folderId" },   //! TestUpload是資料夾名稱，隨便打
+                  { new StreamContent(fs), "ooxx", "nugetpush.txt" } //! ooxx可以隨便替換
               };
 
 var requestFile = new HttpRequestMessage
@@ -47,11 +47,11 @@ var requestFile = new HttpRequestMessage
                   };
 
 requestFile.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token.accessToken);
-requestToken.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("multipart/form-data"));
+requestFile.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("multipart/form-data"));
 
-var response2 = httpClient.Send(requestFile);
+var responseFile = httpClient.Send(requestFile);
 
-Console.WriteLine(response2.StatusCode);
+Console.WriteLine(responseFile.StatusCode);
 #endregion
 
 Console.ReadKey();

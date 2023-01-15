@@ -53,6 +53,8 @@ app.MapPost("UploadServlet",
                             if (!Directory.Exists(path)) _ = Directory.CreateDirectory(path);
                             await using var inputStream    = new FileStream($"{path}\\{file.FileName}", FileMode.Create);
                             await file.CopyToAsync(inputStream);
+
+                            Console.WriteLine($"¤w¦¬¨ì{file.FileName}");
                         }
                         catch (Exception ex)
                         {
