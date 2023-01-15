@@ -32,11 +32,11 @@ Console.WriteLine(token.accessToken);
 #endregion
 
 #region 上傳檔案
-using var fs = File.Open(@"C:\Users\wunma\Desktop\nugetpush.txt", FileMode.Open);
+using var fs = File.Open(@"C:\Users\wunmao\Desktop\test.txt", FileMode.Open);
 var content = new MultipartFormDataContent
               {
-                  { new StringContent("TestUpload"), "folderId" },   //! TestUpload是資料夾名稱，隨便打
-                  { new StreamContent(fs), "ooxx", "nugetpush.txt" } //! ooxx可以隨便替換
+                  { new StringContent("TestUpload"), "folderId" }, //! TestUpload是資料夾名稱，隨便打
+                  { new StreamContent(fs), "ooxx", "test.txt" }    //! ooxx是name可以隨便替換，test.txt是filename也可以隨便替換
               };
 
 var requestFile = new HttpRequestMessage
